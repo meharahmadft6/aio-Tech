@@ -6,6 +6,7 @@ import CounterSection from "@/components/WhyAIO";
 import AboutSection from "@/components/AboutSection";
 import Testimonials from "@/components/Testinominals";
 import Footer from "@/components/Footer";
+import Projects from "@/components/Projects";
 export default function Home() {
   return (
     <>
@@ -14,6 +15,7 @@ export default function Home() {
       <Services />
       <AboutSection />
       <CounterSection />
+      <Projects />
       <Testimonials />
       <Footer />
     </>

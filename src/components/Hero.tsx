@@ -16,17 +16,16 @@ export default function HeroSection() {
         <div className="flex flex-col justify-center items-center lg:items-start space-y-8 w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 lg:ml-20">
           <div className="space-y-6 w-full text-center lg:text-left">
             <h1
-              className={`text-3xl sm:text-5xl xl:text-6xl font-bold leading-tight transition-all duration-1000 ${
+              className={`text-2xl sm:text-xl xl:text-6xl font-bold leading-tight transition-all duration-1000 ${
                 isVisible
                   ? "opacity-100 translate-y-0"
                   : "opacity-0 translate-y-8"
               }`}
             >
-              <span className="text-gray-800">Anything you </span>
+              <span className="text-black">Anything you </span>
               {/* Line break only visible on large screens and up */}
               <br className="hidden lg:block" />
-              <span className="text-gray-800">expect -</span>{" "}
-              {/* Gradient text */}
+              <span className="text-black">expect -</span> {/* Gradient text */}
               <span className="bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">
                 The AIO Tech
               </span>
@@ -38,7 +37,7 @@ export default function HeroSection() {
             className="w-full lg:w-auto flex justify-center lg:justify-start"
           >
             <div
-              className={`inline-flex px-8 py-4 bg-gray-800 text-white rounded-full hover:bg-gray-700 transition-all duration-300 transform hover:scale-105 items-center space-x-2 cursor-pointer transition-all duration-1000 delay-500 ${
+              className={`inline-flex px-8 py-4 bg-black text-white rounded-full hover:bg-gray-700 transition-all duration-300 transform hover:scale-105 items-center space-x-2 cursor-pointer transition-all duration-1000 delay-500 ${
                 isVisible
                   ? "opacity-100 translate-y-0"
                   : "opacity-0 translate-y-8"

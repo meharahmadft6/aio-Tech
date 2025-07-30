@@ -1,5 +1,6 @@
 import React from "react";
-
+import { COMPANY_PHONE, COMPANY_EMAIL } from "../app/constants"; // Make sure to import the email constant
+import Link from "next/link";
 const Footer = () => {
   return (
     <footer className="relative bg-gradient-to-br from-slate-900 via-slate-800 to-blue-900 text-white overflow-hidden">
@@ -55,7 +56,7 @@ const Footer = () => {
         {/* Main CTA Section */}
         <div className="flex flex-col lg:flex-row items-center justify-between mb-16">
           <div className="lg:w-2/3 mb-8 lg:mb-0">
-            <h2 className="text-4xl lg:text-5xl font-bold leading-tight mb-4">
+            <h2 className="text-4xl lg:text-5xl font-bold leading-tight mb-4 hidden lg:block">
               Ready to take your digital
               <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300">
@@ -64,13 +65,20 @@ const Footer = () => {
               <br />
               level?
             </h2>
-          </div>
+            <h2 className="text-3xl font-bold mb-4 leading-tight sm:hidden">
+              Ready to take your digital <span> </span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300">
+                presence to the next
+              </span>
+              <span> </span>
+              level?
+            </h2>
 
-          <div className="lg:w-1/3 flex justify-center lg:justify-end">
-            <button className="group relative px-8 py-4 bg-gradient-to-r from-blue-600 to-cyan-500 rounded-full font-semibold text-white shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 border border-blue-400/30">
-              <span className="flex items-center gap-2">
+            {/* Added Contact Information */}
+            <div className="mt-6 space-y-2">
+              <div className="flex items-center gap-3">
                 <svg
-                  className="w-4 h-4 transition-transform group-hover:translate-x-1"
+                  className="w-5 h-5 text-blue-400"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -79,13 +87,62 @@ const Footer = () => {
                     strokeLinecap="round"
                     strokeLinejoin="round"
                     strokeWidth={2}
-                    d="M9 5l7 7-7 7"
+                    d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
                   />
                 </svg>
-                Get in touch
-              </span>
-              <div className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-600 to-cyan-500 opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
-            </button>
+                <a
+                  href={`mailto:${COMPANY_EMAIL}`}
+                  className="hover:text-blue-400 transition-colors"
+                >
+                  {COMPANY_EMAIL}
+                </a>
+              </div>
+              <div className="flex items-center gap-3">
+                <svg
+                  className="w-5 h-5 text-blue-400"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
+                  />
+                </svg>
+                <a
+                  href={`tel:${COMPANY_PHONE.replace(/[^0-9+]/g, "")}`}
+                  className="hover:text-blue-400 transition-colors"
+                >
+                  {COMPANY_PHONE}
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div className="lg:w-1/3 flex justify-center lg:justify-end">
+            <Link href="/contact" passHref>
+              <button className="group relative px-8 py-4 bg-gradient-to-r from-blue-600 to-cyan-500 rounded-full font-semibold text-white shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 border border-blue-400/30">
+                <span className="flex items-center gap-2">
+                  <svg
+                    className="w-4 h-4 transition-transform group-hover:translate-x-1"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M9 5l7 7-7 7"
+                    />
+                  </svg>
+                  Get in touch
+                </span>
+                <div className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-600 to-cyan-500 opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
+              </button>
+            </Link>
           </div>
         </div>
 
@@ -101,7 +158,6 @@ const Footer = () => {
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-400 transition-all duration-300 group-hover:w-full"></span>
               </a>
             </li>
-
             <li>
               <a
                 href="/contact"
@@ -117,15 +173,6 @@ const Footer = () => {
                 className="hover:text-blue-400 transition-colors duration-300 text-lg font-medium relative group"
               >
                 About
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-400 transition-all duration-300 group-hover:w-full"></span>
-              </a>
-            </li>
-            <li>
-              <a
-                href="/privacy-policy"
-                className="hover:text-blue-400 transition-colors duration-300 text-lg font-medium relative group"
-              >
-                Privacy Policy
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-400 transition-all duration-300 group-hover:w-full"></span>
               </a>
             </li>
