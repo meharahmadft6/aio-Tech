@@ -1,5 +1,9 @@
 import React from "react";
-import { COMPANY_PHONE, COMPANY_EMAIL } from "../app/constants"; // Make sure to import the email constant
+import {
+  COMPANY_PHONE,
+  COMPANY_EMAIL,
+  COMPANY_CITY_STATE,
+} from "../app/constants"; // Make sure to import the email constant
 import Link from "next/link";
 const Footer = () => {
   return (
@@ -116,6 +120,30 @@ const Footer = () => {
                   className="hover:text-blue-400 transition-colors"
                 >
                   {COMPANY_PHONE}
+                </a>
+              </div>
+              <div className="flex items-center gap-3">
+                <svg
+                  className="w-5 h-5 text-blue-400"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M12 11c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3z"
+                  />
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M12 2C8.134 2 5 5.134 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.866-3.134-7-7-7z"
+                  />
+                </svg>
+                <a className="hover:text-blue-400 transition-colors">
+                  {COMPANY_CITY_STATE}
                 </a>
               </div>
             </div>

@@ -29,6 +29,7 @@ export default function Navbar() {
               { name: "About Us", href: "/about" },
               { name: "Services", href: "/services" },
               { name: "Contact Us", href: "/contact" },
+              { name: "Portfolio", href: "/portfolio" },
             ].map((item) => (
               <Link
                 key={item.name}
@@ -144,6 +145,7 @@ export default function Navbar() {
               { name: "About Us", href: "/about" },
               { name: "Services", href: "/services" },
               { name: "Contact Us", href: "/contact" },
+              { name: "Portfolio", href: "/portfolio" },
             ].map((item) => (
               <Link
                 key={item.name}

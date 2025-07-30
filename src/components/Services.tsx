@@ -143,7 +143,7 @@ const AIDigitalSolutions = () => {
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="inline-flex items-center px-8 py-3 border border-gray-300 rounded-full text-white bg-black hover:bg-gray-900 transition-colors duration-200"
+                className="hidden lg:inline-flex items-center px-8 py-3 border border-gray-300 rounded-full text-white bg-black hover:bg-gray-900 transition-colors duration-200"
               >
                 <span className="mr-2">▶</span>
                 Explore all services
