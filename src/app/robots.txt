@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+Disallow: /private/
+Disallow: /admin/
+Disallow: /dashboard/
+Disallow: /api/
+
+Sitemap: ${process.env.NEXT_PUBLIC_SITE_URL}/sitemap.xml
+
+# Crawl-delay: 10
