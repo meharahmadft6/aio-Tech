@@ -1,8 +1,8 @@
 // app/constants.ts
 import { SocialIconName } from "../components/SocialIcons";
 
-export const COMPANY_NAME = "AIO TECH US";
-export const COMPANY_LEGAL_NAME = "The AIO Tech";
+export const COMPANY_NAME = "The AIO TECH US";
+export const COMPANY_LEGAL_NAME = "The AIO Tech US";
 export const COMPANY_URL = "https://www.aiotech.us";
 export const COMPANY_CITY_STATE = "Hershey, PA";
 export const COMPANY_FULL_ADDRESS = "123 Tech Street, Hershey, PA 17033";

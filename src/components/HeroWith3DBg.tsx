@@ -19,7 +19,7 @@ const HeroWithBg: React.FC<HeroWithBgProps> = ({
   const images = backgroundImages || (backgroundImage ? [backgroundImage] : []);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [transitionEffect, setTransitionEffect] = useState<string>("");
-  const [isFirstLoad, setIsFirstLoad] = useState(true);
+  const [imagesLoaded, setImagesLoaded] = useState<boolean[]>([]);
 
   // Different effects for each transition
   const effects = [
@@ -30,8 +30,34 @@ const HeroWithBg: React.FC<HeroWithBgProps> = ({
     "matrix",
   ];
 
+  // Preload all images on component mount
   useEffect(() => {
-    if (images.length <= 1) return;
+    if (images.length <= 0) return;
+
+    const loadStatus = new Array(images.length).fill(false);
+    setImagesLoaded(loadStatus);
+
+    images.forEach((img, index) => {
+      const image = new Image();
+      image.src = img;
+      image.onload = () => {
+        loadStatus[index] = true;
+        setImagesLoaded([...loadStatus]);
+      };
+      image.onerror = () => {
+        loadStatus[index] = true; // Mark as loaded even if error to avoid blocking
+        setImagesLoaded([...loadStatus]);
+      };
+    });
+  }, [images]);
+
+  useEffect(() => {
+    if (
+      images.length <= 1 ||
+      imagesLoaded.length === 0 ||
+      !imagesLoaded[currentImageIndex]
+    )
+      return;
 
     const timer = setInterval(() => {
       // Select a random effect for each transition
@@ -39,17 +65,25 @@ const HeroWithBg: React.FC<HeroWithBgProps> = ({
       setTransitionEffect(randomEffect);
 
       setTimeout(() => {
-        setCurrentImageIndex((prevIndex) =>
-          prevIndex === images.length - 1 ? 0 : prevIndex + 1
-        );
+        setCurrentImageIndex((prevIndex) => {
+          let nextIndex = prevIndex + 1;
+          if (nextIndex >= images.length) nextIndex = 0;
+
+          // Find the next loaded image
+          while (!imagesLoaded[nextIndex] && nextIndex !== prevIndex) {
+            nextIndex = (nextIndex + 1) % images.length;
+          }
+
+          return nextIndex;
+        });
       }, 500); // Halfway through the animation
     }, interval);
 
     return () => clearInterval(timer);
-  }, [images.length, interval]);
+  }, [images.length, interval, imagesLoaded, currentImageIndex]);
 
   const handleDotClick = (index: number) => {
-    if (index !== currentImageIndex) {
+    if (index !== currentImageIndex && imagesLoaded[index]) {
       const randomEffect = effects[Math.floor(Math.random() * effects.length)];
       setTransitionEffect(randomEffect);
       setTimeout(() => {
@@ -63,19 +97,27 @@ const HeroWithBg: React.FC<HeroWithBgProps> = ({
       {/* Background images with transitions */}
       {images.map((image, index) => (
         <React.Fragment key={index}>
+          {/* Show a loading placeholder until images are loaded */}
+          {!imagesLoaded[index] && index === 0 && (
+            <div
+              className="absolute inset-0 bg-gray-800 z-10"
+              style={{ zIndex: 10 }}
+            />
+          )}
+
           <div
             className={`absolute inset-0 bg-cover bg-center transition-all duration-1000 ease-in-out ${
               index === currentImageIndex ? "opacity-100" : "opacity-0"
             }`}
             style={{
-              backgroundImage: `url(${image})`,
+              backgroundImage: imagesLoaded[index] ? `url(${image})` : "none",
               backgroundSize: "cover",
               zIndex: 10,
             }}
           />
 
           {/* Active transition effect */}
-          {index === currentImageIndex && (
+          {index === currentImageIndex && imagesLoaded[index] && (
             <div className={`absolute inset-0 z-20 effect-${transitionEffect}`}>
               {/* Effect-specific elements will be styled via CSS */}
             </div>
@@ -93,23 +135,28 @@ const HeroWithBg: React.FC<HeroWithBgProps> = ({
         </h1>
       </div>
 
-      {/* Navigation dots */}
+      {/* Navigation dots - only show for loaded images */}
       {images.length > 1 && (
         <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-2 z-30">
           {images.map((_, index) => (
             <button
               key={index}
               className={`w-3 h-3 rounded-full transition-all ${
-                index === currentImageIndex ? "bg-white w-6" : "bg-white/50"
+                index === currentImageIndex
+                  ? "bg-white w-6"
+                  : imagesLoaded[index]
+                  ? "bg-white/50"
+                  : "bg-gray-500/30"
               }`}
               onClick={() => handleDotClick(index)}
+              disabled={!imagesLoaded[index]}
               aria-label={`Go to slide ${index + 1}`}
             />
           ))}
         </div>
       )}
 
-      {/* Global styles for animations */}
+      {/* Same global styles as before */}
       <style jsx global>{`
         /* Digital Rain Effect */
         .effect-digital-rain {

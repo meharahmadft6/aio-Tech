@@ -18,7 +18,6 @@ const About = () => {
           "/abstract7.jpg",
           "/abstract1.jpg",
           "/abstract5.jpg",
-
           "/abstract4.jpg",
         ]}
       />
