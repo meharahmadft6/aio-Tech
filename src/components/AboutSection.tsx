@@ -8,9 +8,9 @@ const AboutSection = () => {
 
         <div className="max-w-4xl mx-auto space-y-5">
           <p className="text-lg text-gray-600 leading-relaxed">
-            At The AIO Tech, we bring innovation and expertise to the forefront
-            of your digital marketing strategy. Here why businesses trust us to
-            drive their success:
+            At The AIO Tech US, we bring innovation and expertise to the
+            forefront of your digital marketing strategy. Here why businesses
+            trust us to drive their success:
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4 py-4 max-w-3xl mx-auto">

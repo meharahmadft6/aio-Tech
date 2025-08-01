@@ -2,84 +2,6 @@
 import React from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
-// Define types for the ServiceIcon props
-type ServiceType = "seo" | "social" | "web" | "design";
-
-interface ServiceIconProps {
-  type: ServiceType;
-}
-
-const ServiceIcon = ({ type }: ServiceIconProps) => {
-  const getIcon = () => {
-    switch (type) {
-      case "seo":
-        return (
-          <motion.div
-            initial={{ scale: 0.8, opacity: 0 }}
-            whileInView={{ scale: 1, opacity: 1 }}
-            viewport={{ once: true, margin: "0px 0px -100px 0px" }}
-            transition={{ duration: 0.5 }}
-            className="w-16 h-16 rounded-full bg-gradient-to-br from-red-400 to-blue-500 flex items-center justify-center relative overflow-hidden"
-          >
-            <div className="absolute inset-0 bg-gradient-to-br from-red-300 to-blue-400 opacity-70"></div>
-            <div className="absolute inset-2 rounded-full border-2 border-white/30"></div>
-            <div className="w-8 h-1 bg-white/60 rounded-full transform rotate-45"></div>
-            <div className="w-6 h-1 bg-white/60 rounded-full transform -rotate-45 absolute"></div>
-          </motion.div>
-        );
-      case "social":
-        return (
-          <motion.div
-            initial={{ scale: 0.8, opacity: 0 }}
-            whileInView={{ scale: 1, opacity: 1 }}
-            viewport={{ once: true, margin: "0px 0px -100px 0px" }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="w-16 h-16 rounded-full bg-gradient-to-br from-pink-400 to-blue-500 flex items-center justify-center relative overflow-hidden"
-          >
-            <div className="absolute inset-0">
-              <div className="w-full h-full bg-gradient-to-br from-pink-300 to-blue-400 rounded-full"></div>
-              <div className="absolute top-2 left-2 w-12 h-12 bg-gradient-to-br from-pink-200 to-blue-300 rounded-full opacity-70"></div>
-            </div>
-            <div className="relative z-10 w-6 h-6 bg-white/80 rounded-full"></div>
-          </motion.div>
-        );
-      case "web":
-        return (
-          <motion.div
-            initial={{ scale: 0.8, opacity: 0 }}
-            whileInView={{ scale: 1, opacity: 1 }}
-            viewport={{ once: true, margin: "0px 0px -100px 0px" }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="w-16 h-16 rounded-full bg-gradient-to-br from-purple-400 to-pink-500 flex items-center justify-center relative overflow-hidden"
-          >
-            <div className="absolute inset-0 bg-gradient-to-br from-blue-400 to-pink-400 rounded-full"></div>
-            <div className="absolute inset-1 bg-white rounded-full"></div>
-            <div className="absolute inset-3 bg-gradient-to-br from-purple-300 to-pink-300 rounded-full"></div>
-            <div className="relative z-10 w-4 h-4 bg-white rounded-full"></div>
-          </motion.div>
-        );
-      case "design":
-        return (
-          <motion.div
-            initial={{ scale: 0.8, opacity: 0 }}
-            whileInView={{ scale: 1, opacity: 1 }}
-            viewport={{ once: true, margin: "0px 0px -100px 0px" }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-            className="w-16 h-16 rounded-full bg-gradient-to-br from-blue-400 to-red-500 flex items-center justify-center relative overflow-hidden"
-          >
-            <div className="absolute inset-0 bg-gradient-to-br from-blue-300 to-pink-400 rounded-full"></div>
-            <div className="absolute inset-1 bg-white rounded-full"></div>
-            <div className="absolute inset-3 bg-gradient-to-br from-blue-200 to-pink-300 rounded-full"></div>
-            <div className="relative z-10 w-4 h-4 bg-white rounded-full"></div>
-          </motion.div>
-        );
-      default:
-        return null;
-    }
-  };
-
-  return getIcon();
-};
 
 const AIDigitalSolutions = () => {
   const containerVariants = {
@@ -105,8 +27,8 @@ const AIDigitalSolutions = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white py-16 px-8">
-      <div className="max-w-7xl mx-auto">
+    <div className="bg-white py-16 px-8 ">
+      <div className="mx-auto">
         <motion.div
           className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center"
           initial="hidden"
@@ -115,9 +37,9 @@ const AIDigitalSolutions = () => {
           variants={containerVariants}
         >
           {/* Left Column - Main Heading */}
-          <motion.div className="space-y-8" variants={itemVariants}>
+          <motion.div className="space-y-8 " variants={itemVariants}>
             <motion.h1
-              className="text-2xl lg:text-6xl font-bold text-gray-900 leading-tight hidden lg:block"
+              className="text-2xl lg:text-6xl font-bold text-gray-900 leading-tight hidden lg:block ms-10"
               initial={{ x: -50, opacity: 0 }}
               whileInView={{ x: 0, opacity: 1 }}
               viewport={{ once: true, margin: "0px 0px -100px 0px" }}
@@ -143,7 +65,7 @@ const AIDigitalSolutions = () => {
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="hidden lg:inline-flex items-center px-8 py-3 border border-gray-300 rounded-full text-white bg-black hover:bg-gray-900 transition-colors duration-200"
+                className="hidden ms-10 lg:inline-flex items-center px-8 py-3 border border-gray-300 rounded-full text-white bg-black hover:bg-gray-900 transition-colors duration-200"
               >
                 <span className="mr-2">▶</span>
                 Explore all services
@@ -165,7 +87,14 @@ const AIDigitalSolutions = () => {
               variants={itemVariants}
             >
               <div className="flex-shrink-0 mt-2">
-                <ServiceIcon type="seo" />
+                <motion.div
+                  initial={{ scale: 0.8, opacity: 0 }}
+                  whileInView={{ scale: 1, opacity: 1 }}
+                  viewport={{ once: true, margin: "0px 0px -100px 0px" }}
+                  transition={{ duration: 0.5 }}
+                >
+                  <img src="/point1.svg" alt="SEO Icon" className="w-16 h-16" />
+                </motion.div>
               </div>
               <div className="flex-grow">
                 <h3 className="text-xl font-semibold text-gray-900 mb-3">
@@ -186,7 +115,18 @@ const AIDigitalSolutions = () => {
               variants={itemVariants}
             >
               <div className="flex-shrink-0 mt-2">
-                <ServiceIcon type="social" />
+                <motion.div
+                  initial={{ scale: 0.8, opacity: 0 }}
+                  whileInView={{ scale: 1, opacity: 1 }}
+                  viewport={{ once: true, margin: "0px 0px -100px 0px" }}
+                  transition={{ duration: 0.5, delay: 0.1 }}
+                >
+                  <img
+                    src="/point2.svg"
+                    alt="Social Media Icon"
+                    className="w-16 h-16"
+                  />
+                </motion.div>
               </div>
               <div className="flex-grow">
                 <h3 className="text-xl font-semibold text-gray-900 mb-3">
@@ -207,11 +147,22 @@ const AIDigitalSolutions = () => {
               variants={itemVariants}
             >
               <div className="flex-shrink-0 mt-2">
-                <ServiceIcon type="web" />
+                <motion.div
+                  initial={{ scale: 0.8, opacity: 0 }}
+                  whileInView={{ scale: 1, opacity: 1 }}
+                  viewport={{ once: true, margin: "0px 0px -100px 0px" }}
+                  transition={{ duration: 0.5, delay: 0.2 }}
+                >
+                  <img
+                    src="/point3.svg"
+                    alt="Web Development Icon"
+                    className="w-16 h-16"
+                  />
+                </motion.div>
               </div>
               <div className="flex-grow">
                 <h3 className="text-xl font-semibold text-gray-900 mb-3">
-                  Web & Mobile Development
+                  Website & App Development
                 </h3>
                 <p className="text-gray-600 leading-relaxed">
                   Build responsive, user-friendly websites and native or

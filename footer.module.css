@@ -73,3 +73,74 @@
     font-size: 0.75rem;
   }
 }
+
+/* styles/text-effects.module.css */
+
+.gradientStrokeText {
+  /* Set text fill to transparent */
+  -webkit-text-fill-color: transparent; /* For Webkit browsers */
+  text-fill-color: transparent; /* Standard property */
+
+  /* Apply the gradient to the stroke */
+  -webkit-text-stroke-width: 2px; /* Adjust stroke width as desired */
+  -webkit-text-stroke-color: transparent; /* Make stroke color transparent initially */
+  text-stroke-width: 2px;
+  text-stroke-color: transparent;
+
+  /* Apply the gradient background and clip it to the text stroke */
+  background: linear-gradient(
+    to right,
+    #3b82f6,
+    #8b5cf6,
+    #ec4899
+  ); /* Your gradient colors */
+  -webkit-background-clip: text; /* Clip background to text shape (for fill) */
+  background-clip: text; /* Standard */
+
+  /* Overlay the stroke on top of the transparent fill */
+  /* This is the magic for gradient stroke. We use filter to apply a mask/stroke effect */
+  /* This part is tricky and might not work universally or look identical across all browsers */
+  /* A more robust solution might involve SVG or duplicating text elements. */
+  /* For a subtle gradient stroke, this often works. */
+  position: relative; /* Needed for pseudo-element or more complex layering */
+}
+
+/* Fallback for browsers that don't fully support text-stroke or background-clip: text for stroke */
+/* You might need to adjust this depending on desired fallback. */
+/* For a robust solution, you might consider SVG text. */
+.gradientStrokeText::before {
+  content: attr(data-text); /* Get text from data-text attribute */
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1; /* Place it behind the main text */
+
+  /* Apply the gradient as a background to this pseudo-element */
+  background: linear-gradient(to right, #3b82f6, #8b5cf6, #ec4899);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent; /* Make its fill transparent */
+
+  /* Add stroke to this pseudo-element */
+  -webkit-text-stroke: 2px transparent; /* Same width as main stroke */
+  text-stroke: 2px transparent;
+
+  /* This is where the outline is "created" - by offsetting the background of the original text */
+  /* and setting the stroke on the original text. This is a common hack. */
+  /* More advanced methods involve SVG or multiple text layers */
+}
+
+/* Alternative method using text-shadow for a "faux" stroke, easier to implement but not a true stroke */
+/* .fauxGradientStroke {
+  color: transparent;
+  background: linear-gradient(to right, #3B82F6, #8B5CF6, #EC4899);
+  -webkit-background-clip: text;
+  background-clip: text;
+  text-shadow:
+    1px 1px 0px #3B82F6,
+    -1px -1px 0px #EC4899,
+    1px -1px 0px #8B5CF6,
+    -1px 1px 0px #3B82F6;
+  /* You'd need more shadows for a smoother, thicker stroke with gradient */
+/* This won't truly follow the text contours like a real stroke */
+/* } */

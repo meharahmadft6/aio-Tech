@@ -3,30 +3,32 @@ import Footer from "@/components/Footer";
 import BrainforceWelcomeSection from "@/components/AboutEnhanced";
 import AIDigitalSolutions from "@/components/Services";
 import Testimonials from "@/components/Testinominals";
+import HeroWithBg from "@/components/HeroWith3DBg";
+import ClientCarousel from "@/components/ClientCarousel";
+
 const About = () => {
   return (
     <div className="min-h-screen flex flex-col bg-[#f5f7f9]">
       <Navbar />
 
-      <main className="flex-grow">
-        {/* Hero Section */}
-        <section className="relative rounded-2xl overflow-hidden ms-5 me-5 mb-4">
-          <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-blue-600 to-black opacity-90"></div>
-          <div className="absolute inset-0"></div>
-          <div className="relative flex items-center justify-center h-72 md:h-96">
-            <h1 className="text-white text-4xl md:text-6xl font-semibold">
-              About
-            </h1>
-          </div>
-        </section>
-        <BrainforceWelcomeSection />
+      <HeroWithBg
+        title="About"
+        backgroundImages={[
+          "/abstract3.jpg",
+          "/abstract7.jpg",
+          "/abstract1.jpg",
+          "/abstract5.jpg",
 
-        <AIDigitalSolutions />
-        <div className="mt-5">
-          <Testimonials />
-        </div>
-      </main>
+          "/abstract4.jpg",
+        ]}
+      />
 
+      <BrainforceWelcomeSection />
+      <AIDigitalSolutions />
+      <div className="mt-5">
+        <Testimonials />
+      </div>
+      <ClientCarousel />
       <Footer />
     </div>
   );
