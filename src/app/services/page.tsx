@@ -3,24 +3,15 @@ import Footer from "@/components/Footer";
 import AIDigitalSolutions from "@/components/EnhancedService";
 import WhyAIO from "@/components/WhyAIO";
 import HeroWithBg from "@/components/HeroWith3DBg";
+import ScrollToTopButton from "@/components/ScrollToTopButton"; // Add this import
+
 const Services = () => {
   return (
     <div className="min-h-screen flex flex-col bg-[#f5f7f9]">
       <Navbar />
-
       <main className="flex-grow">
         {/* Hero Section */}
-        <HeroWithBg
-          title="Services"
-          backgroundImages={[
-            "/abstract1.jpg",
-            "/abstract4.jpg",
-
-            "/abstract7.jpg",
-            "/abstract3.jpg",
-            "/abstract5.jpg",
-          ]}
-        />
+        <HeroWithBg title="Services" backgroundImages={["/abstract1.jpg"]} />
 
         <AIDigitalSolutions />
         {/* Stats Section */}
@@ -67,7 +58,7 @@ const Services = () => {
           bg-gradient-to-r from-blue-500 to-red-500 
           text-transparent bg-clip-text"
                 >
-                  8%
+                  78%
                 </h3>
                 <p className="text-lg font-semibold text-black mb-2">
                   Conversion Rate
@@ -81,8 +72,8 @@ const Services = () => {
         </section>
         <WhyAIO />
       </main>
-
       <Footer />
+      <ScrollToTopButton /> {/* Add this component */}
     </div>
   );
 };

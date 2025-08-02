@@ -33,7 +33,7 @@ const WhyAIO = () => {
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [isPaused, setIsPaused] = useState<boolean>(false);
 
-  // Auto-advance carousel
+  // Auto-advance carousel - faster with continuous loop
   useEffect(() => {
     if (!isInView || isPaused) return;
 
@@ -41,12 +41,12 @@ const WhyAIO = () => {
       setCurrentIndex((prevIndex) =>
         prevIndex === features.length - 1 ? 0 : prevIndex + 1
       );
-    }, 4000);
+    }, 2000); // Reduced from 4000 to 2000 for faster transition
 
     return () => clearInterval(interval);
   }, [isInView, isPaused, features.length]);
 
-  // Smooth scroll to current item
+  // Smooth scroll to current item - faster animation
   useEffect(() => {
     if (containerRef.current) {
       const container = containerRef.current;
@@ -60,7 +60,7 @@ const WhyAIO = () => {
     }
   }, [currentIndex, features.length]);
 
-  // Properly typed number formatting function
+  // Format number with leading zero
   const formatNumber = (num: number): string => {
     return num.toString().padStart(2, "0");
   };
@@ -81,7 +81,7 @@ const WhyAIO = () => {
           </motion.h2>
         </div>
 
-        {/* Mobile Carousel */}
+        {/* Mobile Carousel - Faster and more fluid */}
         <div
           ref={containerRef}
           className="md:hidden overflow-x-auto pb-4 -mx-4 snap-x snap-mandatory"
@@ -109,19 +109,19 @@ const WhyAIO = () => {
                 key={index}
                 initial={{ opacity: 0, x: 50 }}
                 animate={isInView ? { opacity: 1, x: 0 } : {}}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
+                transition={{ duration: 0.3, delay: index * 0.1 }} // Faster animation
                 className="snap-item flex-shrink-0 w-[calc(100%-32px)] mx-4"
               >
                 <motion.div
-                  className="bg-gray-50 p-8 rounded-lg shadow-sm hover:shadow-md transition-all duration-500 w-full h-full relative overflow-hidden"
+                  className="bg-gray-50 p-8 rounded-lg shadow-sm hover:shadow-md transition-all duration-300 w-full h-full relative overflow-hidden" // Faster transition
                   whileHover={{
                     scale: 1.02,
                     boxShadow:
                       "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
                   }}
-                  transition={{ duration: 0.3 }}
+                  transition={{ duration: 0.2 }} // Faster hover transition
                 >
-                  {/* Rotating Number with Gradient Border */}
+                  {/* Rotating Number with Gradient Border - Faster rotation */}
                   <motion.div
                     className="absolute -top-3 -right-3 w-16 h-16 rounded-full flex items-center justify-center"
                     style={{
@@ -134,8 +134,8 @@ const WhyAIO = () => {
                       scale: currentIndex === index ? 1.1 : 1,
                     }}
                     transition={{
-                      rotate: { duration: 2, ease: "easeInOut" },
-                      scale: { duration: 0.3 },
+                      rotate: { duration: 1, ease: "easeInOut" }, // Faster rotation
+                      scale: { duration: 0.2 }, // Faster scale
                     }}
                   >
                     <div className="w-full h-full bg-white rounded-full flex items-center justify-center mt-2 me-3">
@@ -144,23 +144,23 @@ const WhyAIO = () => {
                         animate={{
                           scale: currentIndex === index ? 1.1 : 1,
                         }}
-                        transition={{ duration: 0.3 }}
+                        transition={{ duration: 0.2 }} // Faster transition
                       >
                         {formatNumber(index + 1)}
                       </motion.span>
                     </div>
                   </motion.div>
 
-                  {/* Animated background gradient */}
+                  {/* Animated background gradient - Faster transition */}
                   <motion.div
                     className="absolute inset-0 bg-gradient-to-br from-blue-50 to-transparent opacity-0"
                     animate={{
                       opacity: currentIndex === index ? 0.5 : 0,
                     }}
-                    transition={{ duration: 0.8 }}
+                    transition={{ duration: 0.4 }} // Faster transition
                   />
 
-                  {/* Content with stagger animation */}
+                  {/* Content with faster stagger animation */}
                   <motion.div
                     className="relative z-10"
                     animate={{
@@ -168,7 +168,7 @@ const WhyAIO = () => {
                       opacity: currentIndex === index ? 1 : 0.8,
                     }}
                     transition={{
-                      duration: 0.6,
+                      duration: 0.3, // Faster animation
                       ease: "easeOut",
                     }}
                   >
@@ -178,7 +178,7 @@ const WhyAIO = () => {
                         scale: currentIndex === index ? 1.05 : 1,
                         color: currentIndex === index ? "#2563eb" : "#3b82f6",
                       }}
-                      transition={{ duration: 0.4 }}
+                      transition={{ duration: 0.2 }} // Faster transition
                     >
                       {feature.title}
                     </motion.h3>
@@ -187,13 +187,13 @@ const WhyAIO = () => {
                       animate={{
                         opacity: currentIndex === index ? 1 : 0.9,
                       }}
-                      transition={{ duration: 0.5, delay: 0.1 }}
+                      transition={{ duration: 0.2, delay: 0.05 }} // Faster with shorter delay
                     >
                       {feature.description}
                     </motion.p>
                   </motion.div>
 
-                  {/* Active indicator */}
+                  {/* Active indicator - Faster animation */}
                   <motion.div
                     className="absolute bottom-0 left-0 h-1 bg-gradient-to-r from-blue-500 to-blue-600"
                     initial={{ width: 0 }}
@@ -201,7 +201,7 @@ const WhyAIO = () => {
                       width: currentIndex === index ? "100%" : "0%",
                     }}
                     transition={{
-                      duration: currentIndex === index ? 4 : 0.3,
+                      duration: currentIndex === index ? 2 : 0.2, // Faster animation
                       ease: currentIndex === index ? "linear" : "easeOut",
                     }}
                   />
@@ -211,12 +211,12 @@ const WhyAIO = () => {
           </div>
         </div>
 
-        {/* Progress indicators */}
+        {/* Progress indicators - Faster animation */}
         <div className="flex justify-center mt-6 space-x-3 md:hidden">
           {features.map((_, index) => (
             <motion.button
               key={index}
-              className={`relative overflow-hidden rounded-full transition-all duration-300 ${
+              className={`relative overflow-hidden rounded-full transition-all duration-200 ${
                 index === currentIndex
                   ? "w-8 h-3 bg-blue-600"
                   : "w-3 h-3 bg-gray-300 hover:bg-gray-400"
@@ -230,14 +230,14 @@ const WhyAIO = () => {
                   className="absolute inset-0 bg-gradient-to-r from-blue-400 to-blue-700"
                   initial={{ x: "-100%" }}
                   animate={{ x: "0%" }}
-                  transition={{ duration: 4, ease: "linear" }}
+                  transition={{ duration: 2, ease: "linear" }} // Faster progress bar
                 />
               )}
             </motion.button>
           ))}
         </div>
 
-        {/* Grid Layout for larger screens */}
+        {/* Grid Layout for larger screens (unchanged) */}
         <div className="hidden md:grid grid-cols-1 md:grid-cols-3 gap-8">
           {features.map((feature, index) => (
             <motion.div

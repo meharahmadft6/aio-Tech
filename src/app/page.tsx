@@ -10,6 +10,8 @@ import Projects from "@/components/Projects";
 import Marque from "@/components/Marque";
 import LargerImage from "@/components/LargerImage";
 import FuturisticReveal from "@/components/FuturisticSection";
+import ScrollToTopButton from "@/components/ScrollToTopButton"; // Add this import
+import ClientCarousel from "@/components/ClientCarousel";
 export default function Home() {
   return (
     <>
@@ -24,11 +26,13 @@ export default function Home() {
       />
       <CounterSection />
       <section className="w-full mb-5">
-        <FuturisticReveal imageUrl="/moon.jpg" altText="AIO TECH Platform" />
+        <FuturisticReveal imageUrl="/world.png" altText="AIO TECH Platform" />
       </section>
       <Projects />
       <Testimonials />
+      <ClientCarousel />
       <Footer />
+      <ScrollToTopButton /> {/* Add this component */}
     </>
   );
 }

@@ -10,7 +10,7 @@ const BrainforceWelcomeSection = () => {
             Welcome to
             <br />
             <span className="text-3xl bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">
-              The Aio Tech,
+              The Aio Tech Us,
             </span>
             <br />
             where innovation meets excellence
@@ -20,7 +20,7 @@ const BrainforceWelcomeSection = () => {
             Welcome to
             <br />
             <span className="text-4xl md:text-6xl bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">
-              The Aio Tech,
+              The Aio Tech US,
             </span>
             <br />
             where innovation meets excellence

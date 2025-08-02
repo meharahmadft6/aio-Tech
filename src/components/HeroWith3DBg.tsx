@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-
+import { motion } from "framer-motion";
 interface HeroWithBgProps {
   title: string;
   backgroundImages?: string[];
@@ -13,151 +13,136 @@ const HeroWithBg: React.FC<HeroWithBgProps> = ({
   title,
   backgroundImages,
   backgroundImage,
-  overlayGradient = "",
+  overlayGradient = "bg-gradient-to-b from-black/70 via-black/40 to-black/70",
   interval = 3000,
 }) => {
   const images = backgroundImages || (backgroundImage ? [backgroundImage] : []);
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [transitionEffect, setTransitionEffect] = useState<string>("");
-  const [imagesLoaded, setImagesLoaded] = useState<boolean[]>([]);
+  const [currentImageIndex] = useState(0); // We'll use just one image but with multiple effects
+  const [activeEffect, setActiveEffect] = useState<string>("holographic-grid");
+  const [parallaxOffset, setParallaxOffset] = useState({ x: 0, y: 0 });
 
-  // Different effects for each transition
+  // Futuristic effects for our single image
   const effects = [
+    "holographic-grid",
+    "neon-pulse",
     "digital-rain",
-    "holographic",
-    "neon-wave",
-    "particle-explosion",
-    "matrix",
+    "particle-orb",
+    "energy-wave",
   ];
 
-  // Preload all images on component mount
   useEffect(() => {
-    if (images.length <= 0) return;
-
-    const loadStatus = new Array(images.length).fill(false);
-    setImagesLoaded(loadStatus);
-
-    images.forEach((img, index) => {
-      const image = new Image();
-      image.src = img;
-      image.onload = () => {
-        loadStatus[index] = true;
-        setImagesLoaded([...loadStatus]);
-      };
-      image.onerror = () => {
-        loadStatus[index] = true; // Mark as loaded even if error to avoid blocking
-        setImagesLoaded([...loadStatus]);
-      };
-    });
-  }, [images]);
-
-  useEffect(() => {
-    if (
-      images.length <= 1 ||
-      imagesLoaded.length === 0 ||
-      !imagesLoaded[currentImageIndex]
-    )
-      return;
-
-    const timer = setInterval(() => {
-      // Select a random effect for each transition
-      const randomEffect = effects[Math.floor(Math.random() * effects.length)];
-      setTransitionEffect(randomEffect);
-
-      setTimeout(() => {
-        setCurrentImageIndex((prevIndex) => {
-          let nextIndex = prevIndex + 1;
-          if (nextIndex >= images.length) nextIndex = 0;
-
-          // Find the next loaded image
-          while (!imagesLoaded[nextIndex] && nextIndex !== prevIndex) {
-            nextIndex = (nextIndex + 1) % images.length;
-          }
-
-          return nextIndex;
-        });
-      }, 500); // Halfway through the animation
+    // Cycle through effects for continuous animation
+    const effectInterval = setInterval(() => {
+      setActiveEffect((prev) => {
+        const currentIndex = effects.indexOf(prev);
+        return effects[(currentIndex + 1) % effects.length];
+      });
     }, interval);
 
-    return () => clearInterval(timer);
-  }, [images.length, interval, imagesLoaded, currentImageIndex]);
+    return () => clearInterval(effectInterval);
+  }, [interval]);
 
-  const handleDotClick = (index: number) => {
-    if (index !== currentImageIndex && imagesLoaded[index]) {
-      const randomEffect = effects[Math.floor(Math.random() * effects.length)];
-      setTransitionEffect(randomEffect);
-      setTimeout(() => {
-        setCurrentImageIndex(index);
-      }, 500);
-    }
-  };
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      const { clientX, clientY } = e;
+      const x = (clientX / window.innerWidth - 0.5) * 40;
+      const y = (clientY / window.innerHeight - 0.5) * 40;
+      setParallaxOffset({ x, y });
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener("mouseenter", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, []);
 
   return (
-    <section className="relative rounded-2xl overflow-hidden ms-5 me-5 mb-4 h-96 md:h-[32rem] bg-cover bg-center">
-      {/* Background images with transitions */}
-      {images.map((image, index) => (
-        <React.Fragment key={index}>
-          {/* Show a loading placeholder until images are loaded */}
-          {!imagesLoaded[index] && index === 0 && (
-            <div
-              className="absolute inset-0 bg-gray-800 z-10"
-              style={{ zIndex: 10 }}
-            />
-          )}
+    <section className="relative  overflow-hidden  h-110 md:h-[40rem] bg-cover bg-center">
+      {/* 3D Parallax Background */}
+      <div
+        className="absolute inset-0 bg-cover bg-center transition-transform duration-500 ease-out"
+        style={{
+          backgroundImage: `url(/abstract1.jpg)`,
+          transform: `translate(${parallaxOffset.x}px, ${parallaxOffset.y}px) scale(1.1)`,
+          zIndex: 5,
+        }}
+      />
 
-          <div
-            className={`absolute inset-0 bg-cover bg-center transition-all duration-1000 ease-in-out ${
-              index === currentImageIndex ? "opacity-100" : "opacity-0"
-            }`}
-            style={{
-              backgroundImage: imagesLoaded[index] ? `url(${image})` : "none",
-              backgroundSize: "cover",
-              zIndex: 10,
-            }}
-          />
-
-          {/* Active transition effect */}
-          {index === currentImageIndex && imagesLoaded[index] && (
-            <div className={`absolute inset-0 z-20 effect-${transitionEffect}`}>
-              {/* Effect-specific elements will be styled via CSS */}
-            </div>
-          )}
-        </React.Fragment>
-      ))}
+      {/* Animated Effects Layer */}
+      <div
+        className={`absolute inset-0 effect-${activeEffect}`}
+        style={{ zIndex: 10 }}
+      />
 
       {/* Overlay gradient */}
       <div className={`absolute inset-0 ${overlayGradient} z-15`}></div>
 
       {/* Content */}
-      <div className="relative flex items-center justify-center h-full w-full z-30">
-        <h1 className="text-white text-4xl md:text-6xl font-semibold text-center px-4">
+      <div className="relative flex flex-col items-center justify-center h-full w-full z-30 px-4">
+        <motion.h1
+          className="text-white text-5xl md:text-7xl font-bold text-center mb-4"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+        >
           {title}
-        </h1>
+        </motion.h1>
       </div>
 
-      {/* Navigation dots - only show for loaded images */}
-      {images.length > 1 && (
-        <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-2 z-30">
-          {images.map((_, index) => (
-            <button
-              key={index}
-              className={`w-3 h-3 rounded-full transition-all ${
-                index === currentImageIndex
-                  ? "bg-white w-6"
-                  : imagesLoaded[index]
-                  ? "bg-white/50"
-                  : "bg-gray-500/30"
-              }`}
-              onClick={() => handleDotClick(index)}
-              disabled={!imagesLoaded[index]}
-              aria-label={`Go to slide ${index + 1}`}
-            />
-          ))}
-        </div>
-      )}
+      {/* Futuristic UI Elements */}
+      <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 z-30" />
+      <div className="absolute top-4 left-4 right-4 flex justify-between z-30">
+        <div className="h-1 w-8 bg-blue-400 rounded-full" />
+        <div className="h-1 w-8 bg-purple-400 rounded-full" />
+        <div className="h-1 w-8 bg-pink-400 rounded-full" />
+      </div>
 
-      {/* Same global styles as before */}
+      {/* Global styles for our effects */}
       <style jsx global>{`
+        /* Holographic Grid Effect */
+        .effect-holographic-grid {
+          background-image: linear-gradient(
+              rgba(0, 200, 255, 0.1) 1px,
+              transparent 1px
+            ),
+            linear-gradient(90deg, rgba(0, 200, 255, 0.1) 1px, transparent 1px);
+          background-size: 40px 40px;
+          animation: gridPulse 4s infinite alternate;
+        }
+
+        @keyframes gridPulse {
+          0% {
+            opacity: 0.2;
+          }
+          50% {
+            opacity: 0.5;
+            background-size: 35px 35px;
+          }
+          100% {
+            opacity: 0.2;
+          }
+        }
+
+        /* Neon Pulse Effect */
+        .effect-neon-pulse {
+          background: radial-gradient(
+            circle,
+            rgba(0, 255, 255, 0.1) 0%,
+            transparent 70%
+          );
+          animation: neonPulse 3s infinite alternate;
+        }
+
+        @keyframes neonPulse {
+          0% {
+            transform: scale(1);
+            opacity: 0.1;
+          }
+          100% {
+            transform: scale(1.5);
+            opacity: 0.3;
+          }
+        }
+
         /* Digital Rain Effect */
         .effect-digital-rain {
           background: linear-gradient(
@@ -177,100 +162,49 @@ const HeroWithBg: React.FC<HeroWithBgProps> = ({
           }
         }
 
-        /* Holographic Grid Effect */
-        .effect-holographic {
-          background-image: linear-gradient(
-              rgba(0, 200, 255, 0.1) 1px,
-              transparent 1px
-            ),
-            linear-gradient(90deg, rgba(0, 200, 255, 0.1) 1px, transparent 1px);
-          background-size: 50px 50px;
-          animation: holographicPulse 2s infinite alternate;
+        /* Particle Orb Effect */
+        .effect-particle-orb {
+          background: radial-gradient(
+            circle at center,
+            rgba(255, 0, 255, 0.2) 0%,
+            rgba(255, 0, 255, 0) 70%
+          );
+          animation: orbFloat 8s infinite ease-in-out;
         }
 
-        @keyframes holographicPulse {
-          0% {
-            opacity: 0.3;
-          }
+        @keyframes orbFloat {
+          0%,
           100% {
-            opacity: 0.8;
+            transform: translate(-20%, -20%) scale(1);
+          }
+          50% {
+            transform: translate(20%, 20%) scale(1.2);
           }
         }
 
-        /* Neon Wave Effect */
-        .effect-neon-wave {
+        /* Energy Wave Effect */
+        .effect-energy-wave {
           background: linear-gradient(
             90deg,
-            rgba(255, 0, 255, 0) 0%,
-            rgba(255, 0, 255, 0.2) 50%,
-            rgba(255, 0, 255, 0) 100%
+            rgba(0, 255, 255, 0) 0%,
+            rgba(0, 255, 255, 0.1) 50%,
+            rgba(0, 255, 255, 0) 100%
           );
-          animation: neonWave 2s linear infinite;
+          animation: energyWave 6s linear infinite;
         }
 
-        @keyframes neonWave {
+        @keyframes energyWave {
           0% {
-            transform: translateX(-100%);
+            transform: translateX(-100%) skewX(-20deg);
           }
           100% {
-            transform: translateX(100%);
+            transform: translateX(100%) skewX(-20deg);
           }
         }
 
-        /* Particle Explosion */
-        .effect-particle-explosion {
-          background: radial-gradient(
-            circle,
-            rgba(255, 255, 255, 0.8) 0%,
-            rgba(255, 255, 255, 0) 70%
-          );
-          animation: particleExplode 1s ease-out forwards;
-        }
-
-        @keyframes particleExplode {
-          0% {
-            transform: scale(0);
-            opacity: 1;
-          }
-          100% {
-            transform: scale(3);
-            opacity: 0;
-          }
-        }
-
-        /* Matrix Code Effect */
-        .effect-matrix::before {
-          content: "";
-          position: absolute;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          background: linear-gradient(
-            to bottom,
-            transparent 0%,
-            rgba(0, 255, 0, 0.2) 50%,
-            transparent 100%
-          );
-          animation: matrixScan 1.5s linear infinite;
-        }
-
-        @keyframes matrixScan {
-          from {
-            top: -100%;
-          }
-          to {
-            top: 100%;
-          }
-        }
-
-        /* Base transition effects */
-        .effect-digital-rain,
-        .effect-holographic,
-        .effect-neon-wave,
-        .effect-particle-explosion,
-        .effect-matrix {
-          pointer-events: none;
+        /* Glow effect for text */
+        .glow {
+          text-shadow: 0 0 10px rgba(100, 200, 255, 0.8);
         }
       `}</style>
     </section>

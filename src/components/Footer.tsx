@@ -1,8 +1,10 @@
+"use client";
 import React from "react";
 import {
   COMPANY_PHONE,
   COMPANY_EMAIL,
   COMPANY_CITY_STATE,
+  COMPANY_SOCIAL_LINKS,
 } from "../app/constants";
 import Link from "next/link";
 
@@ -10,84 +12,20 @@ const Footer = () => {
   return (
     <>
       <div className="relative md:p-5 bg-white">
-        {" "}
-        {/* Removed rounded-full class from here */}
         <footer
-          className="relative bg-gradient-to-br from-slate-900 via-slate-800 to-blue-900 text-white overflow-hidden"
+          className="relative text-white overflow-hidden"
           style={{
-            borderRadius: "32px 32px 0 0", // Top border radius
-            borderBottomLeftRadius: "20% 20%", // Adjust these values for the desired curve
-            borderBottomRightRadius: "20% 20%", // Adjust these values for the desired curve
-            // You might also need to use clip-path for more complex shapes,
-            // but for a simple upward curve on the bottom, border-radius can work.
-            // Ensure the bottom part of the footer (copyright) aligns visually.
+            backgroundImage: "url('/footer.png')",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            backgroundRepeat: "repeat",
+            borderRadius: "32px 32px 0 0",
+            borderBottomLeftRadius: "20% 20%",
+            borderBottomRightRadius: "20% 20%",
           }}
         >
-          {/* Background Energy Effects */}
-          <div className="absolute inset-0 opacity-30">
-            <div className="absolute top-20 right-20 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl animate-pulse"></div>
-            <div className="absolute top-40 right-40 w-64 h-64 bg-cyan-400/15 rounded-full blur-2xl animate-pulse delay-1000"></div>
-            <div className="absolute bottom-20 right-10 w-80 h-80 bg-blue-600/10 rounded-full blur-3xl animate-pulse delay-500"></div>
-          </div>
-
-          {/* Neural Network Lines */}
-          <div className="absolute inset-0 opacity-20">
-            <svg className="w-full h-full" viewBox="0 0 1200 400" fill="none">
-              <path
-                d="M0 200 Q 200 100 400 200 T 800 150 L 1200 180"
-                stroke="url(#gradient1)"
-                strokeWidth="2"
-                className="animate-pulse"
-              />
-              <path
-                d="M0 250 Q 300 180 600 220 T 1200 200"
-                stroke="url(#gradient2)"
-                strokeWidth="1.5"
-                className="animate-pulse delay-700"
-              />
-              <path
-                d="M0 300 Q 400 250 800 280 L 1200 260"
-                stroke="url(#gradient3)"
-                strokeWidth="1"
-                className="animate-pulse delay-300"
-              />
-              <defs>
-                <linearGradient
-                  id="gradient1"
-                  x1="0%"
-                  y1="0%"
-                  x2="100%"
-                  y2="0%"
-                >
-                  <stop offset="0%" stopColor="#3b82f6" stopOpacity="0" />
-                  <stop offset="50%" stopColor="#06b6d4" stopOpacity="0.8" />
-                  <stop offset="100%" stopColor="#3b82f6" stopOpacity="0" />
-                </linearGradient>
-                <linearGradient
-                  id="gradient2"
-                  x1="0%"
-                  y1="0%"
-                  x2="100%"
-                  y2="0%"
-                >
-                  <stop offset="0%" stopColor="#06b6d4" stopOpacity="0" />
-                  <stop offset="50%" stopColor="#3b82f6" stopOpacity="0.6" />
-                  <stop offset="100%" stopColor="#06b6d4" stopOpacity="0" />
-                </linearGradient>
-                <linearGradient
-                  id="gradient3"
-                  x1="0%"
-                  y1="0%"
-                  x2="100%"
-                  y2="0%"
-                >
-                  <stop offset="0%" stopColor="#1e40af" stopOpacity="0" />
-                  <stop offset="50%" stopColor="#0ea5e9" stopOpacity="0.4" />
-                  <stop offset="100%" stopColor="#1e40af" stopOpacity="0" />
-                </linearGradient>
-              </defs>
-            </svg>
-          </div>
+          {/* Overlay for better text readability */}
+          <div className="absolute inset-0 bg-black/50"></div>
 
           <div className="relative z-10 max-w-7xl mx-auto px-6 py-16">
             {/* Main CTA Section */}
@@ -176,6 +114,52 @@ const Footer = () => {
                     </a>
                   </div>
                 </div>
+
+                {/* Social Icons */}
+                <div className="mt-8 flex gap-6">
+                  {COMPANY_SOCIAL_LINKS.map((social) => (
+                    <a
+                      key={social.name}
+                      href={social.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-white hover:scale-110 transition-all duration-300"
+                      aria-label={social.name}
+                    >
+                      {social.name === "Facebook" ? (
+                        // Facebook Icon
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="currentColor"
+                          viewBox="0 0 24 24"
+                          className="w-8 h-8 text-blue-600 hover:text-blue-800 transition-colors duration-300"
+                        >
+                          <path d="M22.675 0H1.325C.593 0 0 .593 0 1.326v21.348C0 23.407.593 24 1.325 24h11.494v-9.294H9.691V11.01h3.128V8.413c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.098 2.795.142v3.24h-1.917c-1.504 0-1.796.715-1.796 1.763v2.31h3.587l-.467 3.696h-3.12V24h6.116C23.407 24 24 23.407 24 22.674V1.326C24 .593 23.407 0 22.675 0z" />
+                        </svg>
+                      ) : social.name === "Linkedin" ? (
+                        // LinkedIn Icon
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="currentColor"
+                          viewBox="0 0 24 24"
+                          className="w-8 h-8 text-blue-500 hover:text-blue-700 transition-colors duration-300"
+                        >
+                          <path d="M4.98 3.5C4.98 4.88 3.88 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1 4.98 2.12 4.98 3.5zM.5 8h4v13h-4V8zm7.5 0h3.6v1.8h.05c.5-.9 1.8-1.85 3.7-1.85 4 0 4.75 2.6 4.75 6v7h-4v-6.2c0-1.5-.03-3.45-2.1-3.45-2.1 0-2.4 1.6-2.4 3.35V21h-4V8z" />
+                        </svg>
+                      ) : (
+                        // Default (e.g., Instagram)
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="currentColor"
+                          viewBox="0 0 24 24"
+                          className="w-8 h-8 text-pink-600 hover:text-pink-800 transition-colors duration-300"
+                        >
+                          <path d="M12 2.163c3.204 0 3.584.012 4.85.07 1.17.056 1.973.24 2.43.403a4.92 4.92 0 011.675 1.093 4.92 4.92 0 011.093 1.675c.163.457.347 1.26.403 2.43.058 1.266.07 1.645.07 4.85s-.012 3.584-.07 4.85c-.056 1.17-.24 1.973-.403 2.43a4.902 4.902 0 01-2.768 2.768c-.457.163-1.26.347-2.43.403-1.266.058-1.645.07-4.85.07s-3.584-.012-4.85-.07c-1.17-.056-1.973-.24-2.43-.403a4.902 4.902 0 01-2.768-2.768c-.163-.457-.347-1.26-.403-2.43C2.175 15.747 2.163 15.368 2.163 12s.012-3.584.07-4.85c.056-1.17.24-1.973.403-2.43a4.92 4.92 0 011.093-1.675A4.92 4.92 0 015.404 2.636c.457-.163 1.26-.347 2.43-.403C8.416 2.175 8.796 2.163 12 2.163zm0-2.163C8.741 0 8.332.014 7.052.072 5.775.13 4.734.334 3.91.634a7.073 7.073 0 00-2.565 1.64A7.073 7.073 0 00.634 4.91C.334 5.734.13 6.775.072 8.052.014 9.332 0 9.741 0 12c0 2.259.014 2.668.072 3.948.058 1.277.262 2.318.562 3.142a7.088 7.088 0 001.64 2.565 7.088 7.088 0 002.565 1.64c.824.3 1.865.504 3.142.562C9.332 23.986 9.741 24 12 24s2.668-.014 3.948-.072c1.277-.058 2.318-.262 3.142-.562a7.088 7.088 0 002.565-1.64 7.088 7.088 0 001.64-2.565c.3-.824.504-1.865.562-3.142.058-1.28.072-1.689.072-3.948s-.014-2.668-.072-3.948c-.058-1.277-.262-2.318-.562-3.142a7.073 7.073 0 00-1.64-2.565 7.073 7.073 0 00-2.565-1.64C18.268.334 17.227.13 15.948.072 14.668.014 14.259 0 12 0zM12 5.838A6.162 6.162 0 005.838 12 6.162 6.162 0 0012 18.162 6.162 6.162 0 0018.162 12 6.162 6.162 0 0012 5.838zm0 10.162A3.999 3.999 0 1116 12a3.999 3.999 0 01-4 4zm6.406-11.845a1.44 1.44 0 11-2.88 0 1.44 1.44 0 012.88 0z" />
+                        </svg>
+                      )}
+                    </a>
+                  ))}
+                </div>
               </div>
 
               <div className="lg:w-1/3 flex justify-center lg:justify-end">
@@ -236,7 +220,7 @@ const Footer = () => {
                 <li>
                   <a
                     href="/portfolio"
-                    className="hover:text-blue-400 transition-colors duration-300 text-lg font-medium relative group"
+                    className="hover:text-blue-400 hidden lg:block transition-colors duration-300 text-lg font-medium relative group"
                   >
                     Portfolio
                     <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-400 transition-all duration-300 group-hover:w-full"></span>
@@ -252,9 +236,33 @@ const Footer = () => {
         <div className="bg-white px-6 pb-8 -mt-1">
           <div className="max-w-7xl mx-auto text-center">
             <p className="text-black text-base mt-3">
-              © 2025 The AIO Tech. All rights reserved.
+              © 2025{" "}
+              <strong>
+                <Link href="/"> The AIO Tech US.</Link>
+              </strong>{" "}
+              All rights reserved.
             </p>
           </div>
+        </div>
+        <div
+          className="shadow-2xl shadow-cyan-500/20 overflow-hidden transition-all duration-300 group-hover:scale-102 relative w-full h-64 md:h-82 lg:h-90 bg-center bg-no-repeat"
+          style={{
+            backgroundImage: `url('/footerdown.png')`,
+          }}
+        >
+          <style jsx>{`
+            @media (max-width: 768px) {
+              div[style*="background-image"] {
+                background-size: contain !important;
+              }
+            }
+
+            @media (min-width: 769px) {
+              div[style*="background-image"] {
+                background-size: cover !important;
+              }
+            }
+          `}</style>
         </div>
       </div>
     </>

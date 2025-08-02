@@ -21,24 +21,24 @@ const FuturisticReveal: React.FC<FuturisticRevealProps> = ({
 
   const paragraphs: ParagraphData[] = [
     {
-      text: "THE AIO TECH US is your smart business partner — your digital co-founder for instant growth. It monitors your operations, anticipates trends, and recommends your next best step.",
-      className: "text-2xl md:text-3xl font-bold text-white",
+      text: "THE AIO TECH US is your smart business partner your digital co-founder for instant growth. It monitors your operations, anticipates trends, and recommends your next best step.",
+      className: "text-lg md:text-3xl font-bold text-white",
     },
     {
       text: "No more juggling between apps, hunting for key metrics, or waiting on delayed reports. Everything updates live — right on your screen. You can tweak campaigns on the go without restarting from scratch.",
-      className: "text-xl md:text-2xl text-white",
+      className: "text-base md:text-2xl text-white",
     },
     {
       text: "With our unified control center, you can manage, monitor, and scale your business from a single, streamlined dashboard. Gain full visibility into what drives your revenue and performance.",
-      className: "text-xl md:text-2xl text-white",
+      className: "text-base md:text-2xl text-white",
     },
     {
       text: "We fast-track your growth — from professional websites and scroll-stopping content to performance-driven marketing that turns visitors into customers.",
-      className: "text-xl md:text-2xl text-white",
+      className: "text-base md:text-2xl text-white",
     },
     {
       text: "While others promise, THE AIO TECH US delivers.",
-      className: "text-2xl md:text-3xl font-bold text-white",
+      className: "text-xl md:text-3xl font-bold text-white",
     },
   ];
 
@@ -111,11 +111,11 @@ const FuturisticReveal: React.FC<FuturisticRevealProps> = ({
   return (
     <div ref={containerRef} className="relative w-full">
       {/* Full-screen static image */}
-      <div className="h-screen w-full">
+      <div className="md:h-screen w-full">
         <img
           src={imageUrl}
           alt={altText}
-          className="w-full h-full object-cover"
+          className="w-full h-full object-contain md:object-cover"
         />
       </div>
 

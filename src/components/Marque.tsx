@@ -14,7 +14,7 @@ const Marque = () => {
     <div className="relative w-full overflow-hidden py-8">
       <div className="flex w-max">
         {/* Render multiple sets of logos for seamless looping */}
-        {[...Array(3)].map((_, setIndex) => (
+        {[...Array(10)].map((_, setIndex) => (
           <div
             key={`set-${setIndex}`}
             className="flex animate-marquee whitespace-nowrap"
@@ -47,7 +47,7 @@ const Marque = () => {
           }
         }
         .animate-marquee {
-          animation: marquee 15s linear infinite;
+          animation: marquee 4s linear infinite;
           display: inline-flex;
         }
       `}</style>

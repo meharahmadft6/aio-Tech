@@ -17,6 +17,7 @@ const ContactForm = () => {
     subject: "",
     message: "",
   });
+  ``;
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>

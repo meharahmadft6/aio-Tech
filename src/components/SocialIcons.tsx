@@ -4,9 +4,9 @@ import { Facebook, Instagram, Linkedin } from "lucide-react";
 import React from "react";
 
 export const socialIcons = {
-  facebook: <Facebook className="h-6 w-6" />,
-  instagram: <Instagram className="h-6 w-6" />,
-  linkedin: <Linkedin className="h-6 w-6" />,
+  facebook: <Facebook className="h-10 w-10" />,
+  instagram: <Instagram className="h-10 w-10" />,
+  linkedin: <Linkedin className="h-10 w-10" />,
 };
 
 export type SocialIconName = keyof typeof socialIcons;

@@ -1,9 +1,8 @@
 // app/constants.ts
 import { SocialIconName } from "../components/SocialIcons";
-
 export const COMPANY_NAME = "The AIO TECH US";
 export const COMPANY_LEGAL_NAME = "The AIO Tech US";
-export const COMPANY_URL = "https://www.aiotech.us";
+export const COMPANY_URL = "https://www.theaiotech.us";
 export const COMPANY_CITY_STATE = "Hershey, PA";
 export const COMPANY_FULL_ADDRESS = "123 Tech Street, Hershey, PA 17033";
 export const COMPANY_PHONE = "(726) 222-4622";
@@ -16,23 +15,18 @@ export const COMPANY_OG_IMAGE_URL = `${COMPANY_URL}/logo.png`;
 export const COMPANY_SOCIAL_LINKS = [
   {
     name: "Instagram",
-    url: "https://instagram.com/theaiotech",
+    url: "https://www.instagram.com/theaiotech.us?igsh=NmpjaThkZDZiNjA=",
     iconName: "instagram" as SocialIconName,
   },
   {
     name: "Facebook",
-    url: "https://facebook.com/theaiotech",
+    url: "https://www.facebook.com/profile.php?id=61578824438973&mibextid=ZbWKwL",
     iconName: "facebook" as SocialIconName,
   },
   {
-    name: "LinkedIn",
-    url: "https://linkedin.com/company/theaiotech",
+    name: "Linkedin",
+    url: "https://www.linkedin.com/in/theaiotech-us-aa25b7378",
     iconName: "linkedin" as SocialIconName,
-  },
-  {
-    name: "Twitter",
-    url: "https://twitter.com/AIO_TECH_US",
-    iconName: "twitter" as SocialIconName,
   },
 ];
 

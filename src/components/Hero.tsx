@@ -62,7 +62,6 @@ export default function HeroSection() {
               </div>
             </Link>
           </div>
-
           {/* Right Content - Robot Illustration */}
           <div
             className={`flex md:mr-20 items-center justify-center lg:justify-end transition-all duration-1000 delay-700 ${
@@ -72,35 +71,78 @@ export default function HeroSection() {
             }`}
           >
             <div className="relative w-80 h-80 lg:w-96 lg:h-96">
-              {/* Background with Hero Image */}
-              <div
-                className="absolute inset-0 bg-black rounded-3xl overflow-hidden"
-                style={{
-                  backgroundImage: "url('/globe.png')",
-                  backgroundSize: "cover",
-                  backgroundPosition: "center",
-                  backgroundRepeat: "no-repeat",
-                }}
-              >
-                {/* Dark overlay for better contrast */}
-                <div className="absolute inset-0 bg-black/40 rounded-3xl"></div>
-              </div>
+              {/* Animated border glow effect */}
+              <div className="absolute -inset-1 bg-gradient-to-r from-cyan-500 via-blue-500 to-purple-500 rounded-3xl opacity-75 blur-sm animate-pulse"></div>
+              <div className="absolute -inset-2 bg-gradient-to-r from-purple-500 via-pink-500 to-cyan-500 rounded-3xl opacity-30 blur-md animate-spin-slow"></div>
 
-              {/* Floating Elements */}
+              {/* Corner accent lights */}
+              <div className="absolute -top-2 -left-2 w-4 h-4 bg-cyan-400 rounded-full blur-sm animate-ping"></div>
               <div
-                className="absolute -top-4 -right-4 w-8 h-8 bg-blue-500 rounded-full opacity-60 animate-bounce"
-                style={{ animationDelay: "0s" }}
-              ></div>
-              <div
-                className="absolute top-12 -left-6 w-6 h-6 bg-purple-500 rounded-full opacity-60 animate-bounce"
+                className="absolute -top-2 -right-2 w-4 h-4 bg-blue-400 rounded-full blur-sm animate-ping"
                 style={{ animationDelay: "1s" }}
               ></div>
               <div
-                className="absolute -bottom-6 right-8 w-10 h-10 bg-green-500 rounded-full opacity-60 animate-bounce"
+                className="absolute -bottom-2 -left-2 w-4 h-4 bg-purple-400 rounded-full blur-sm animate-ping"
                 style={{ animationDelay: "2s" }}
               ></div>
+              <div
+                className="absolute -bottom-2 -right-2 w-4 h-4 bg-pink-400 rounded-full blur-sm animate-ping"
+                style={{ animationDelay: "3s" }}
+              ></div>
+
+              {/* Main image container */}
+              <div className="relative w-full h-full">
+                {/* Background with Hero Image */}
+                <div
+                  className="absolute inset-0 bg-black rounded-3xl overflow-hidden shadow-2xl"
+                  style={{
+                    backgroundImage: "url('/globe.png')",
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                    backgroundRepeat: "no-repeat",
+                  }}
+                >
+                  {/* Dark overlay for better contrast */}
+                  <div className="absolute inset-0 bg-black/40 rounded-3xl"></div>
+
+                  {/* Scanning line effect */}
+                  <div className="absolute inset-0 overflow-hidden rounded-3xl">
+                    <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-cyan-400 to-transparent opacity-60 animate-scan"></div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
+          <style jsx>{`
+            @keyframes spin-slow {
+              from {
+                transform: rotate(0deg);
+              }
+              to {
+                transform: rotate(360deg);
+              }
+            }
+
+            @keyframes scan {
+              0% {
+                transform: translateY(0) scaleX(0);
+              }
+              50% {
+                transform: translateY(320px) scaleX(1);
+              }
+              100% {
+                transform: translateY(640px) scaleX(0);
+              }
+            }
+
+            .animate-spin-slow {
+              animation: spin-slow 8s linear infinite;
+            }
+
+            .animate-scan {
+              animation: scan 3s ease-in-out infinite;
+            }
+          `}</style>{" "}
         </div>
 
         {/* Background Decorative Elements */}
