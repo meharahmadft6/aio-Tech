@@ -75,7 +75,22 @@ const CustomerReviews = () => {
                 />
 
                 {/* Play button overlay */}
-
+                <div className="absolute inset-0 flex items-center justify-center bg-black/30 opacity-100 group-hover:opacity-100 transition-opacity duration-300">
+                  <div className="p-3 rounded-full bg-black/50 backdrop-blur-sm hover:bg-black/70 transition-colors">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="white"
+                      className="w-8 h-8"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M4.5 5.653c0-1.426 1.529-2.33 2.779-1.643l11.54 6.348c1.295.712 1.295 2.573 0 3.285L7.28 19.991c-1.25.687-2.779-.217-2.779-1.643V5.653z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                  </div>
+                </div>
                 {/* Video title overlay */}
                 <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/80 to-transparent">
                   <h3 className="text-xl font-bold">{video.title}</h3>
