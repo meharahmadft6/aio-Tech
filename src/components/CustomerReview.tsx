@@ -3,38 +3,41 @@ import React, { useRef, useState } from "react";
 
 const CustomerReviews = () => {
   const videos = [
-    { id: 1, src: "/video1.mp4", title: "Anna Senior" },
-    { id: 2, src: "/video2.mp4", title: "Rhino Movers" },
-    { id: 3, src: "/video3.mp4", title: "Ameri Park" },
+    {
+      id: 1,
+      src: "/video1.mp4",
+      title: "Anna Senior",
+      thumbnail: "/v1.png", // Add thumbnail paths
+    },
+    {
+      id: 2,
+      src: "/video2.mp4",
+      title: "Rhino Movers",
+      thumbnail: "/v2.png",
+    },
+    {
+      id: 3,
+      src: "/video3.mp4",
+      title: "Ameri Park",
+      thumbnail: "/v3.png",
+    },
   ];
 
-  const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
-  const [playingStates, setPlayingStates] = useState(videos.map(() => false));
+  const [selectedVideo, setSelectedVideo] = useState<null | {
+    src: string;
+    title: string;
+  }>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
-  // Initialize refs array
-  if (videoRefs.current.length !== videos.length) {
-    videoRefs.current = Array(videos.length).fill(null);
-  }
+  const handleVideoClick = (video: { src: string; title: string }) => {
+    setSelectedVideo(video);
+  };
 
-  const handlePlayPause = (index: number) => {
-    const video = videoRefs.current[index];
-    if (video) {
-      if (video.paused) {
-        video.play();
-        setPlayingStates((prev) => {
-          const newStates = [...prev];
-          newStates[index] = true;
-          return newStates;
-        });
-      } else {
-        video.pause();
-        setPlayingStates((prev) => {
-          const newStates = [...prev];
-          newStates[index] = false;
-          return newStates;
-        });
-      }
+  const closeModal = () => {
+    if (videoRef.current) {
+      videoRef.current.pause();
     }
+    setSelectedVideo(null);
   };
 
   return (
@@ -54,83 +57,78 @@ const CustomerReviews = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
-          {videos.map((video, index) => (
+          {videos.map((video) => (
             <div
               key={video.id}
               className="group relative rounded-xl overflow-hidden shadow-2xl transition-all duration-300 hover:scale-[1.02] border-2 border-transparent hover:border-gradient bg-gradient-to-br from-gray-900 to-black p-0.5"
-              style={{ height: "400px", width: "100%" }} // Fixed dimensions
+              style={{ height: "400px", width: "100%" }}
             >
-              <div className="relative h-full w-full rounded-xl overflow-hidden bg-black">
-                <video
-                  ref={(el) => {
-                    videoRefs.current[index] = el;
-                  }}
-                  className="w-full h-full object-cover cursor-pointer"
-                  aria-label={`Customer testimonial video ${video.id}`}
-                  controlsList="nodownload noplaybackrate nofullscreen"
-                  playsInline
-                  onEnded={() => {
-                    setPlayingStates((prev) => {
-                      const newStates = [...prev];
-                      newStates[index] = false;
-                      return newStates;
-                    });
-                  }}
-                >
-                  <source src={video.src} type="video/mp4" />
-                  Your browser does not support the video tag.
-                </video>
+              <div
+                className="relative h-full w-full rounded-xl overflow-hidden bg-black cursor-pointer"
+                onClick={() => handleVideoClick(video)}
+              >
+                {/* Thumbnail image */}
+                <img
+                  src={video.thumbnail}
+                  alt={`${video.title} testimonial thumbnail`}
+                  className="w-full h-full object-cover"
+                />
+
+                {/* Play button overlay */}
 
                 {/* Video title overlay */}
                 <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/80 to-transparent">
                   <h3 className="text-xl font-bold">{video.title}</h3>
                 </div>
-
-                {/* Custom play/pause overlay */}
-                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <button
-                    className="p-3 rounded-full bg-black/50 backdrop-blur-sm hover:bg-black/70 transition-colors"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      handlePlayPause(index);
-                    }}
-                    aria-label={
-                      playingStates[index] ? "Pause video" : "Play video"
-                    }
-                  >
-                    {playingStates[index] ? (
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 24 24"
-                        fill="white"
-                        className="w-8 h-8"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M6.75 5.25a.75.75 0 01.75-.75H9a.75.75 0 01.75.75v13.5a.75.75 0 01-.75.75H7.5a.75.75 0 01-.75-.75V5.25zm7.5 0A.75.75 0 0115 4.5h1.5a.75.75 0 01.75.75v13.5a.75.75 0 01-.75.75H15a.75.75 0 01-.75-.75V5.25z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
-                    ) : (
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 24 24"
-                        fill="white"
-                        className="w-8 h-8"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M4.5 5.653c0-1.426 1.529-2.33 2.779-1.643l11.54 6.348c1.295.712 1.295 2.573 0 3.285L7.28 19.991c-1.25.687-2.779-.217-2.779-1.643V5.653z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
-                    )}
-                  </button>
-                </div>
               </div>
             </div>
           ))}
         </div>
+
+        {/* Video Popup Modal */}
+        {selectedVideo && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-4">
+            <div className="relative w-full max-w-4xl mx-auto">
+              <button
+                onClick={closeModal}
+                className="absolute -top-12 right-0 text-white hover:text-gray-300 z-50"
+                aria-label="Close video"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  className="w-8 h-8"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M5.47 5.47a.75.75 0 011.06 0L12 10.94l5.47-5.47a.75.75 0 111.06 1.06L13.06 12l5.47 5.47a.75.75 0 11-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 01-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 010-1.06z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </button>
+
+              <div className="aspect-w-16 aspect-h-9 w-full">
+                <video
+                  ref={videoRef}
+                  className="w-full h-full max-h-[80vh] object-contain"
+                  controls
+                  autoPlay
+                  playsInline
+                >
+                  <source src={selectedVideo.src} type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
+              </div>
+
+              <div className="mt-4 text-center">
+                <h3 className="text-xl font-bold text-white">
+                  {selectedVideo.title}
+                </h3>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </section>
   );
