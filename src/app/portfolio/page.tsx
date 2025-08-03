@@ -10,7 +10,7 @@ const Portfolio = () => {
       <Navbar />
       <main className="flex-grow">
         {/* Hero Section */}
-        <HeroWithBg title="Portfolio" backgroundImages={["/abstract1.jpg"]} />
+        <HeroWithBg title="Portfolio" />
       </main>
       <Projects />
       <Footer />

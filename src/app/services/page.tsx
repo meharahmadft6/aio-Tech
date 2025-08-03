@@ -11,7 +11,7 @@ const Services = () => {
       <Navbar />
       <main className="flex-grow">
         {/* Hero Section */}
-        <HeroWithBg title="Services" backgroundImages={["/abstract1.jpg"]} />
+        <HeroWithBg title="Services" />
 
         <AIDigitalSolutions />
         {/* Stats Section */}

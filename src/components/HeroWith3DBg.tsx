@@ -1,9 +1,10 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import Image from "next/image";
+
 interface HeroWithBgProps {
   title: string;
-  backgroundImages?: string[];
   backgroundImage?: string;
   overlayGradient?: string;
   interval?: number;
@@ -11,17 +12,11 @@ interface HeroWithBgProps {
 
 const HeroWithBg: React.FC<HeroWithBgProps> = ({
   title,
-  backgroundImages,
-  backgroundImage,
+  backgroundImage = "/abstract1.jpg", // Default image path
   overlayGradient = "bg-gradient-to-b from-black/70 via-black/40 to-black/70",
   interval = 3000,
 }) => {
-  const images = backgroundImages || (backgroundImage ? [backgroundImage] : []);
-  const [currentImageIndex] = useState(0); // We'll use just one image but with multiple effects
   const [activeEffect, setActiveEffect] = useState<string>("holographic-grid");
-  const [parallaxOffset, setParallaxOffset] = useState({ x: 0, y: 0 });
-
-  // Futuristic effects for our single image
   const effects = [
     "holographic-grid",
     "neon-pulse",
@@ -31,7 +26,6 @@ const HeroWithBg: React.FC<HeroWithBgProps> = ({
   ];
 
   useEffect(() => {
-    // Cycle through effects for continuous animation
     const effectInterval = setInterval(() => {
       setActiveEffect((prev) => {
         const currentIndex = effects.indexOf(prev);
@@ -42,44 +36,34 @@ const HeroWithBg: React.FC<HeroWithBgProps> = ({
     return () => clearInterval(effectInterval);
   }, [interval]);
 
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      const { clientX, clientY } = e;
-      const x = (clientX / window.innerWidth - 0.5) * 40;
-      const y = (clientY / window.innerHeight - 0.5) * 40;
-      setParallaxOffset({ x, y });
-    };
-
-    window.addEventListener("mousemove", handleMouseMove);
-    window.addEventListener("mouseenter", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, []);
-
   return (
-    <section className="relative  overflow-hidden  h-110 md:h-[40rem] bg-cover bg-center">
-      {/* 3D Parallax Background */}
-      <div
-        className="absolute inset-0 bg-cover bg-center transition-transform duration-500 ease-out"
-        style={{
-          backgroundImage: `url(/abstract1.jpg)`,
-          transform: `translate(${parallaxOffset.x}px, ${parallaxOffset.y}px) scale(1.1)`,
-          zIndex: 5,
-        }}
-      />
+    <section className="relative overflow-hidden h-110 md:h-[40rem]">
+      {/* Optimized Background Image */}
+      <div className="absolute inset-0">
+        <Image
+          src={backgroundImage}
+          alt="Background"
+          fill
+          priority
+          quality={100}
+          className="object-cover"
+          style={{
+            objectFit: "cover",
+            objectPosition: "center",
+          }}
+        />
+      </div>
 
-      {/* Animated Effects Layer */}
+      {/* Rest of your component remains the same */}
       <div
         className={`absolute inset-0 effect-${activeEffect}`}
         style={{ zIndex: 10 }}
       />
-
-      {/* Overlay gradient */}
       <div className={`absolute inset-0 ${overlayGradient} z-15`}></div>
 
-      {/* Content */}
       <div className="relative flex flex-col items-center justify-center h-full w-full z-30 px-4">
         <motion.h1
-          className="text-white text-5xl md:text-7xl font-bold text-center mb-4"
+          className="text-white text-5xl md:text-7xl font-bold text-center mb-4 glow"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
@@ -88,14 +72,8 @@ const HeroWithBg: React.FC<HeroWithBgProps> = ({
         </motion.h1>
       </div>
 
-      {/* Futuristic UI Elements */}
       <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 z-30" />
-      <div className="absolute top-4 left-4 right-4 flex justify-between z-30">
-        <div className="h-1 w-8 bg-blue-400 rounded-full" />
-        <div className="h-1 w-8 bg-purple-400 rounded-full" />
-        <div className="h-1 w-8 bg-pink-400 rounded-full" />
-      </div>
-
+          
       {/* Global styles for our effects */}
       <style jsx global>{`
         /* Holographic Grid Effect */

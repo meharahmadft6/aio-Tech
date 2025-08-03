@@ -12,12 +12,14 @@ import LargerImage from "@/components/LargerImage";
 import FuturisticReveal from "@/components/FuturisticSection";
 import ScrollToTopButton from "@/components/ScrollToTopButton"; // Add this import
 import ClientCarousel from "@/components/ClientCarousel";
+import CustomerReviews from "@/components/CustomerReview";
 export default function Home() {
   return (
     <>
       <Navbar />
       <HeroSection />
       <Marque />
+      <CustomerReviews />
       <Services />
       <AboutSection />
       <LargerImage

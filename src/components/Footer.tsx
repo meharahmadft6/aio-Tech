@@ -254,7 +254,7 @@ const Footer = () => {
             @media (max-width: 768px) {
               div[style*="background-image"] {
                 background-size: contain !important;
-                height: 110px !important; /* Adjust this value as needed */
+                height: 100px !important; /* Adjust this value as needed */
               }
             }
 

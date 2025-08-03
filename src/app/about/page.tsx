@@ -11,7 +11,7 @@ const About = () => {
   return (
     <div className="min-h-screen flex flex-col bg-[#f5f7f9]">
       <Navbar />
-      <HeroWithBg title="About" backgroundImages={["/abstract1.jpg"]} />
+      <HeroWithBg title="About" />
       <BrainforceWelcomeSection />
       <AIDigitalSolutions />
       <div className="mt-5">

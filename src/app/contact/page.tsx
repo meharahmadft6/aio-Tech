@@ -10,7 +10,7 @@ const Contact = () => {
       <Navbar />
       <main className="flex-grow">
         {/* Hero Section */}
-        <HeroWithBg title="Contact Us" backgroundImages={["/abstract1.jpg"]} />
+        <HeroWithBg title="Contact Us" />
 
         <ContactForm />
       </main>
